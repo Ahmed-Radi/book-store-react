@@ -1,7 +1,7 @@
 import axios  from 'axios'
 import { useEffect, useState } from 'react'
-import ReactPaginate from 'react-paginate';
 import { AiOutlineDownload } from 'react-icons/ai'
+import Paginate from './Paginate';
 
 function Cards() {
     const [data, setData] = useState<any>([])
@@ -16,9 +16,9 @@ function Cards() {
 
     let itemsPerPage = 10
     useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage;
-    setCurrentItems(data.slice(itemOffset, endOffset));
-    setPageCount(Math.ceil(data.length / itemsPerPage));
+        const endOffset = itemOffset + itemsPerPage;
+        setCurrentItems(data.slice(itemOffset, endOffset));
+        setPageCount(Math.ceil(data.length / itemsPerPage));
     }, [itemOffset, itemsPerPage]);
 
     const handlePageClick = (event: any) => {
@@ -28,7 +28,7 @@ function Cards() {
 
     return (
         <>
-            <section className="flex flex-wrap justify-around md:justify-between">
+            <section className="grid grid-cols-1 xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-2 place-items-center justify-around md:justify-between">
                 {
                     data && currentItems?.map(({authors, id, title, download_count, formats}:any) => (
                         <div key={id} className="w-[200px] mb-4 bg-blue-200 rounded-tl-md rounded-tr-md border-solid border-red-600 border-1">
@@ -44,26 +44,7 @@ function Cards() {
                     ))
                 }
             </section>
-            {data && currentItems ? <ReactPaginate
-                breakLabel="..."
-                nextLabel=">"
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={2}
-                pageCount={pageCount ? pageCount : data.length / itemsPerPage }
-                previousLabel="<"
-                renderOnZeroPageCount={null || undefined}
-                containerClassName='pagination justify-content-center'
-                pageClassName='bg-[#7367F0] flex items-center mr-1 h-[37px] rounded-[50%]'
-                pageLinkClassName=' text-[#fff] p-2 mx-[5px]'
-                previousClassName='bg-[#7367F0] flex items-center mr-1 h-[37px] rounded-[50%]'
-                previousLinkClassName=' text-[#fff] p-2 mx-[5px]'
-                nextClassName='bg-[#7367F0] flex items-center mr-1 h-[37px] rounded-[50%]'
-                nextLinkClassName=' text-[#fff] p-2 mx-[5px]'
-                breakClassName='bg-[#7367F0] flex items-center mr-1 h-[37px] rounded-[50%]'
-                breakLinkClassName=' text-[#fff] p-2 mx-[5px]'
-                activeClassName='active'
-                className="flex justify-center p-3"
-            /> : "loading..."}
+            <Paginate data={data} pageCount={pageCount} currentItems={currentItems} itemsPerPage={itemsPerPage} handlePageClick={handlePageClick} />
         </>
     )
 }
