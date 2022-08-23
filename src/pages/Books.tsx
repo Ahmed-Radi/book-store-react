@@ -1,9 +1,16 @@
 import Cards from "../components/Cards";
 
-function Books() {
+interface BookProps {
+    currentItems: any;
+    pageCount: number;
+    handlePageClick: (event:any) => void;
+    itemsPerPage: number;
+    data: any;
+}
+function Books({currentItems, pageCount, handlePageClick, data, itemsPerPage}: BookProps) {
 	return (
         <section className="w-[80%] m-auto">
-                <Cards />
+                <Cards data={data} currentItems={currentItems} pageCount={pageCount} handlePageClick={handlePageClick} itemsPerPage={itemsPerPage} />
         </section>
 	);
 }

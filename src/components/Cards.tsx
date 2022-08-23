@@ -1,30 +1,13 @@
-import axios  from 'axios'
-import { useEffect, useState } from 'react'
 import { AiOutlineDownload } from 'react-icons/ai'
 import Paginate from './Paginate';
-
-function Cards() {
-    const [data, setData] = useState<any>([])
-    useEffect(() => {
-        axios.get('https://gutendex.com/books')
-        .then((res) => setData(res.data.results))
-    } ,[])
-
-    const [currentItems, setCurrentItems] = useState<any>(null);
-    const [pageCount, setPageCount] = useState<number>(0);
-    const [itemOffset, setItemOffset] = useState<number>(0);
-
-    let itemsPerPage = 10
-    useEffect(() => {
-        const endOffset = itemOffset + itemsPerPage;
-        setCurrentItems(data.slice(itemOffset, endOffset));
-        setPageCount(Math.ceil(data.length / itemsPerPage));
-    }, [itemOffset, itemsPerPage]);
-
-    const handlePageClick = (event: any) => {
-        const newOffset = (event.selected * itemsPerPage) % data.length;
-        setItemOffset(newOffset);
-    };
+interface CardsProps {
+    currentItems: any;
+    pageCount: number;
+    itemsPerPage: number;
+    handlePageClick: (event:any) => void;
+    data: any
+}
+function Cards({currentItems, pageCount, handlePageClick, itemsPerPage, data}: CardsProps) {
 
     return (
         <>
@@ -48,20 +31,5 @@ function Cards() {
         </>
     )
 }
-
-// .page-link {
-//     background-color: #7367F0!important;
-//     &::focus {
-//         box-shadow: none !important;
-//     }
-// }
-// a {
-//     &:hover {
-//         color: #fff!important;
-//     }
-//     &::focus {
-//         box-shadow: none !important;
-//     }
-// }
 
 export default Cards
