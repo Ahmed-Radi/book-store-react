@@ -1,13 +1,16 @@
 import { BsHeartFill } from 'react-icons/bs';
 import { BiUser, BiSearch } from 'react-icons/bi';
 
-interface navbarprop {
+interface navbarProp {
     setData: any;
+    searchHandler: (data: any) => any
 }
-function Navbar({setData}: navbarprop) {
+function Navbar({setData, searchHandler}: navbarProp) {
 
     const changeHandle = (e:any) => {
-        setData((prev:any) => prev.filter((title:any) => title.title === e))
+        // setData((prev:any) => prev.filter((title:any) => title.title === e))
+        // setData((prev:any) => prev.filter((title:any) => console.log(title.title !== e)))
+        // searchHandler(e)
     }
     return (
         <div>
@@ -16,7 +19,7 @@ function Navbar({setData}: navbarprop) {
                     <div className="w-[20%] font-semibold text-xl">Booksy</div>
                     <div className="w-[50%] bg-gray-100 rounded-lg">
                         <div className="flex items-center px-2">
-                            <input type="text" placeholder="Search by author, title, name" onChange={e => changeHandle(e.target.value)} className="w-[91%] bg-transparent outline-none p-2 mr-2" />
+                            <input type="text" placeholder="Search by author, title, name" onChange={e => searchHandler(e.target.value)} className="w-[91%] bg-transparent outline-none p-2 mr-2" />
                             <BiSearch />
                         </div>
                     </div>
