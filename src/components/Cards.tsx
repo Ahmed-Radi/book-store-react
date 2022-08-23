@@ -6,7 +6,7 @@ import Paginate from './Paginate';
 function Cards() {
     const [data, setData] = useState<any>([])
     useEffect(() => {
-        axios.get('http://gutendex.com/books')
+        axios.get('https://gutendex.com/books')
         .then((res) => setData(res.data.results))
     } ,[])
 
